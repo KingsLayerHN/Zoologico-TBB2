@@ -1,12 +1,8 @@
-body {
-     background-image: url("../img/lion-king-of-zoo.jpg"); 
+.auth {
+    background-image: url("../img/lion-king-of-zoo.jpg"); 
      background-size: cover; 
      width: 100vw; 
-     height: 100vh;
-     display: flex;
-     justify-content: center;
-     align-items: center; 
-     
+     height: 100vh;      
 }
 div .card {
     width: 30%; 
@@ -27,4 +23,13 @@ input {
 .card h2{
     text-align: center;
 
+}
+.noauth {
+    background-image: url("../img/lion-king-of-zoo.jpg"); 
+     background-size: cover; 
+     width: 100vw; 
+     height: 100vh;
+     display: flex;
+     align-items: center;
+      
 }
