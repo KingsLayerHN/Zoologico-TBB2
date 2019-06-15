@@ -9,6 +9,9 @@ div .card {
     margin: 0 auto;
     
 }
+.tbody{
+    background-color: white;
+}
 div .card-body {
     display: flex;
     flex-flow: column;
