@@ -16,29 +16,29 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="" data-target="#userModal" data-toggle="modal">Usuario</a>
+                        <a class="nav-link" href="usuarios.html">Usuario</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Animales</a>
+                        <a class="nav-link" href="animales.html">Animales</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Especies</a>
+                        <a class="nav-link" href="especies.html">Especies</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Subespecies</a>
+                        <a class="nav-link" href="subespecies.html">Subespecies</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Zonas</a>
+                        <a class="nav-link" href="zonas.html">Zonas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Empleados</a>
+                        <a class="nav-link" href="empleados.html">Empleados</a>
                     </li>
                 </ul>
             </div>
         </nav>
-        <button type="button" class="btn btn-success">Agregar</button>
-        <button type="button" class="btn btn-dark" disabled = "true">Modificar</button>
-        <button type="button" class="btn btn-danger" disabled = "true">Eliminar</button>
+        <button type="button" class="btn btn-success" data-target="#userModal" data-toggle="modal">Agregar</button>
+        <button type="button" class="btn btn-dark" disabled="true">Modificar</button>
+        <button type="button" class="btn btn-danger" disabled="true">Eliminar</button>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -60,7 +60,7 @@
                 </tr>
             </tbody>
         </table>
-        
+
 
         <!-- Modal -->
         <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
@@ -77,8 +77,8 @@
                         ...
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">najera se la come toda</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -96,7 +96,30 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
 
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDJVpKYgXFURDuuuvn8XITBlcGMn1UmC_M",
+            authDomain: "users-7557f.firebaseapp.com",
+            databaseURL: "https://users-7557f.firebaseio.com",
+            projectId: "users-7557f",
+            storageBucket: "users-7557f.appspot.com",
+            messagingSenderId: "207944477105",
+            appId: "1:207944477105:web:15796ceb1ae54bb8"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script src="./js/users.js"></script>
 </body>
 
 </html>
