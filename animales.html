@@ -95,7 +95,21 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-
-</body>
-
-</html>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+          apiKey: "AIzaSyDJVpKYgXFURDuuuvn8XITBlcGMn1UmC_M",
+          authDomain: "users-7557f.firebaseapp.com",
+          databaseURL: "https://users-7557f.firebaseio.com",
+          projectId: "users-7557f",
+          storageBucket: "users-7557f.appspot.com",
+          messagingSenderId: "207944477105",
+          appId: "1:207944477105:web:15796ceb1ae54bb8"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    </body >
+</html >
