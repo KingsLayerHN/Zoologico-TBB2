@@ -130,6 +130,18 @@
                                 <input type="number" class="form-control" id="peso" placeholder="Ingrese el peso">
                             </div>
                             <div class="form-group">
+                                <label for="level">Continente</label>
+                                <select class="form-control" id="level">
+                                    <option value="">Seleccione un continente</option>
+                                    <option value="1">America</option>
+                                    <option value="2">Europa</option>
+                                    <option value="3">Asia</option>
+                                    <option value="4">Africa</option>
+                                    <option value="5">Oceania</option>
+                                    <option value="5">Antartida</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="continente">Continente</label>
                                 <input type="text" class="form-control" id="continente"
                                     placeholder="Ingrese el continente">
@@ -193,7 +205,7 @@
         const db = firebase.firestore();
     </script>
     <script>
-         
+
     </script>
 
     <script src="./js/users.js"></script>
