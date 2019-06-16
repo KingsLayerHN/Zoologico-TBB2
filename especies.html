@@ -55,8 +55,6 @@
             </div>
         </nav>
         <button type="button" class="btn btn-success" data-target="#especiesModal" data-toggle="modal">Agregar</button>
-        <button type="button" class="btn btn-dark" disabled="true">Modificar</button>
-        <button type="button" class="btn btn-danger" disabled="true">Eliminar</button>
         <table class="table" id="especie_table">
             <thead class="thead-dark">
                 <tr>
@@ -65,7 +63,7 @@
                 </tr>
             </thead>
             <tbody class="tbody">
-                
+
             </tbody>
         </table>
 
@@ -85,11 +83,13 @@
                         <form>
                             <div class="form-group">
                                 <label for="claven">Clave de la especie</label>
-                                <input type="text" class="form-control" id="claven"  placeholder="Ingrese la clave de la especie">
+                                <input type="text" class="form-control" id="claven"
+                                    placeholder="Ingrese la clave de la especie">
                             </div>
                             <div class="form-group">
                                 <label for="especie">Nombre de la especie</label>
-                                <input type="text" class="form-control" id="especie"  placeholder="Ingrese la especie animal">
+                                <input type="text" class="form-control" id="especie"
+                                    placeholder="Ingrese la especie animal">
                             </div>
                         </form>
                     </div>
@@ -147,93 +147,93 @@
                 let especie = doc.data();
                 //console.log(user);
                 var row = table.insertRow();
-                row.key=doc.id;
+                row.key = doc.id;
                 // console.log(row.key);
                 add_cell(row, doc.id);
-                add_cell(row, especie.especie);            
+                add_cell(row, especie.especie);
             });
-        }) 
-        function add_cell (tr, text) {
+        })
+        function add_cell(tr, text) {
             var td = tr.insertCell();
             td.textContent = text;
             return td;
         }   
     </script>
     <script>
-        function rellenar(){
-            if(document.getElementById('claven').value){
-                var myclave=document.getElementById('claven').value;
+        function rellenar() {
+            if (document.getElementById('claven').value) {
+                var myclave = document.getElementById('claven').value;
                 var docRef = db.collection("especie").doc(myclave);
-                docRef.get().then(function(doc) {
+                docRef.get().then(function (doc) {
                     if (doc.exists) {
-                        let especie=doc.data();
+                        let especie = doc.data();
                         document.getElementById('especie').value = especie.especie;
                         console.log("Document data:", doc.data());
                     } else {
                         // doc.data() will be undefined in this case
                         console.log("No such document!");
                     }
-                }).catch(function(error) {
+                }).catch(function (error) {
                     console.log("Error getting document:", error);
                 });
-            }else{
+            } else {
                 alert("Debe porporcionar una clave valida para rellenar los campos");
             }
         }
-        function save_especie(){
+        function save_especie() {
             alert("entro");
-            let especie=document.getElementById('especie').value;
+            let especie = document.getElementById('especie').value;
             db.collection("especie").add({
                 especie
             })
-            .then(function(docRef) {
-                
-                console.log("Document written with ID: ", docRef.id);
-                alert("Especie registrada")
-                document.getElementById('especie').value = "";
-        
-            })
-            .catch(function(error) {
-                console.error("Error adding document: ", error);
-            });
-         
+                .then(function (docRef) {
+
+                    console.log("Document written with ID: ", docRef.id);
+                    alert("Especie registrada")
+                    document.getElementById('especie').value = "";
+
+                })
+                .catch(function (error) {
+                    console.error("Error adding document: ", error);
+                });
+
         }
-        function update_especie(){
-            if(document.getElementById('claven').value){
-                let especie=document.getElementById('especie').value;
-                let clave=document.getElementById('claven').value;
-            
+        function update_especie() {
+            if (document.getElementById('claven').value) {
+                let especie = document.getElementById('especie').value;
+                let clave = document.getElementById('claven').value;
+
                 var washingtonRef = db.collection("especie").doc(clave);
 
                 // Set the "especie" field of the city 'DC'
                 return washingtonRef.update({
                     especie
                 })
-                .then(function() {
-                    console.log("Document successfully updated!");
-                    alert("Especie actualizada")
-                    document.getElementById('claven').value = "";
-                    document.getElementById('especie').value = "";
-                })
-                .catch(function(error) {
-                    // The document probably doesn't exist.
-                    console.error("Error updating document: ", error);
-                });
-            }else{
+                    .then(function () {
+                        console.log("Document successfully updated!");
+                        alert("Especie actualizada")
+                        document.getElementById('claven').value = "";
+                        document.getElementById('especie').value = "";
+                    })
+                    .catch(function (error) {
+                        // The document probably doesn't exist.
+                        console.error("Error updating document: ", error);
+                    });
+            } else {
                 alert("Ingrese clave para modificar wey")
             }
         }
-        function delete_especie(){
-            if(document.getElementById('claven').value){
-                var myclave=document.getElementById('claven').value;
+        function delete_especie() {
+            if (document.getElementById('claven').value) {
+                var myclave = document.getElementById('claven').value;
 
-                db.collection("especie").doc(myclave).delete().then(function() {
+                db.collection("especie").doc(myclave).delete().then(function () {
                     alert("El registro de especie ha sido eliminado, refresca la pagina");
                     console.log("Document successfully deleted!");
-                }).catch(function(error) {
+                }).catch(function (error) {
                     console.error("Error removing document: ", error);
                 });
-            }else{
+            } else {
                 alert("Ingrese clave para eliminar wey")
             }
         }

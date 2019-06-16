@@ -21,52 +21,76 @@ firebase.auth().onAuthStateChanged(function (user) {
   }
 });
 
-function add_cell (tr, text) {
+function add_cell(tr, text) {
   var td = tr.insertCell();
   td.textContent = text;
   return td;
 }
 
-function save_user () {
+function update_user() {
   let email = document.getElementById('email').value;
   let pwd = document.getElementById('pwd').value;
   let nickname = document.getElementById('nickname').value;
   let level = parseInt(document.getElementById('level').value);
 
-  if ((email !== '') && (pwd !== '') && (nickname !== '') && (level !== '')) {
-    axios.get('https://us-central1-users-7557f.cloudfunctions.net/signupUsers', {
-      params: {
-        email,
-        nickname,
-        level,
-        pwd
-      }
+  let db = firebase().firestore();
+  var washingtonRef = db.collection("users").doc(clave);
+
+  return washingtonRef.update({
+    email,
+    pwd,
+    nickname,
+    level,
+
+  })
+    .then(function () {
+      console.log("Document successfully updated!");
     })
-    .then((data) => {
-      console.log(data);
-      if (data.status === 200) {
-        document.getElementById('email').value = "";
-        document.getElementById('pwd').value = "";
-        document.getElementById('nickname').value = "";
-        document.getElementById('level').value = "";
-      } else if (data.status === 202) {
-        if (data.data.code === "auth/invalid-password") {
-          alert("Contraseña insegura");
-        } else if (data.data.code === "auth/email-already-in-use") {
-          alert("Este correo ya está registrado");
-        } else if (data.data.code === "auth/invalid-email") {
-          alert("Correo inválido");
-        } else {
-          alert("Error inesperado");
+    .catch(function (error) {
+      // The document probably doesn't exist.
+      console.error("Error updating document: ", error);
+    });
+
+  function save_user() {
+    let email = document.getElementById('email').value;
+    let pwd = document.getElementById('pwd').value;
+    let nickname = document.getElementById('nickname').value;
+    let level = parseInt(document.getElementById('level').value);
+
+    if ((email !== '') && (pwd !== '') && (nickname !== '') && (level !== '')) {
+      axios.get('https://us-central1-users-7557f.cloudfunctions.net/signupUsers', {
+        params: {
+          email,
+          nickname,
+          level,
+          pwd
         }
-      }
-    })
-  } else {
-    alert("Debe llenar el formulario");
+      })
+        .then((data) => {
+          console.log(data);
+          if (data.status === 200) {
+            document.getElementById('email').value = "";
+            document.getElementById('pwd').value = "";
+            document.getElementById('nickname').value = "";
+            document.getElementById('level').value = "";
+          } else if (data.status === 202) {
+            if (data.data.code === "auth/invalid-password") {
+              alert("Contraseña insegura");
+            } else if (data.data.code === "auth/email-already-in-use") {
+              alert("Este correo ya está registrado");
+            } else if (data.data.code === "auth/invalid-email") {
+              alert("Correo inválido");
+            } else {
+              alert("Error inesperado");
+            }
+          }
+        })
+    } else {
+      alert("Debe llenar el formulario");
+    }
+
   }
 
-}
-
-function logout () {
-  firebase.auth().signOut();
-}
+  function logout() {
+    firebase.auth().signOut();
+  }

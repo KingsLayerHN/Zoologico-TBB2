@@ -40,8 +40,6 @@
             </div>
         </nav>
         <button type="button" class="btn btn-success" data-target="#userModal" data-toggle="modal">Agregar</button>
-        <button type="button" class="btn btn-dark" disabled="true">Modificar</button>
-        <button type="button" class="btn btn-danger" disabled="true">Eliminar</button>
         <table class="table" id="UsersTable">
             <thead class="thead-dark">
                 <tr>
@@ -80,11 +78,13 @@
                         <form>
                             <div class="form-group">
                                 <label for="email">Correo</label>
-                                <input type="email" class="form-control" id="email" aria-describedby="Correo" placeholder="Ingrese un correo">
+                                <input type="email" class="form-control" id="email" aria-describedby="Correo"
+                                    placeholder="Ingrese un correo">
                             </div>
                             <div class="form-group">
                                 <label for="pwd">Contraseña</label>
-                                <input type="password" class="form-control" id="pwd" placeholder="Ingrese una contraseña">
+                                <input type="password" class="form-control" id="pwd"
+                                    placeholder="Ingrese una contraseña">
                             </div>
                             <div class="form-group">
                                 <label for="nickname">Apodo</label>
@@ -105,6 +105,9 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn btn-primary" onclick="save_user()">Guardar</button>
+                        <button type="button" class="btn btn-primary" onclick="">Rellenar</button>
+                        <button type="button" class="btn btn-primary" onclick="">Modificar</button>
+                        <button type="button" class="btn btn-primary" onclick="">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -145,7 +148,7 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
     </script>
-    
+
 
     <script src="./js/users.js"></script>
 </body>
