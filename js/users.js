@@ -90,7 +90,9 @@ function update_user() {
     }
 
   }
+}
 
-  function logout() {
-    firebase.auth().signOut();
-  }
+function logout() {
+  firebase.auth().signOut();
+
+}
