@@ -167,7 +167,65 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
     </script>
-
+    <script>
+        function save_especie(){
+            let especie=document.getElementById('especie').value;
+            let existe=false;
+            let firestore = firebase.firestore();
+            firestore.collection('especie').get().then(data => {
+                data.docs.forEach(function (doc, index) {
+                    let especies=doc.data();
+                    alert(especie +" === "+ especies.especie);
+                    if(especie === especies.especie){
+                        existe=true;
+                    }
+                });
+               
+            });
+            if(existe){
+                
+            }else{
+                db.collection("especie").add({
+                    especie
+                }).then(function(docRef) {
+                    console.log("Document written with ID: ", docRef.id);
+                    alert("Se registro una nueva especie")
+                }).catch(function(error) {
+                    console.error("Error adding document: ", error);
+                });
+            } 
+        }
+        function save_subespecie(){
+            let subespecie=document.getElementById('sub_especie').value;
+            let especie=document.getElementById('especie').value;
+            if(subespecie){
+                var existe=false;
+                let firestore = firebase.firestore();
+                firestore.collection('subespecie').get().then(data => {
+                    data.docs.forEach(function (doc, index) {
+                        let subespecies=doc.data();
+                        if(subespecies == sub.subespecie){
+                            existe=true;
+                        }
+                    });
+                   
+                });
+                if(existe){
+                   
+                }else{
+                    db.collection("subespecie").add({
+                        subespecie,
+                        especie
+                    }).then(function(docRef) {
+                        console.log("Document written with ID: ", docRef.id);
+                        alert("Se registro una nueva subespecie")
+                    }).catch(function(error) {
+                        console.error("Error adding document: ", error);
+                    });
+                }
+            }
+        }
+    </script>
     <script src="./js/users.js"></script>
 </body>
 
