@@ -57,7 +57,7 @@
             </div>
         </nav>
         <button type="button" class="btn btn-success" data-target="#animalsModal" data-toggle="modal">Agregar</button>
-        <button type="button" class="btn btn-dark" data-target="#animalsModalEdite">Modificar</button>
+        <button type="button" class="btn btn-dark" data-target="#animalsModalEdite" data-togle="modal">Modificar</button>
         <button type="button" class="btn btn-danger" disabled="true">Eliminar</button>
         <table class="table" id="animal_table">
             <thead class="thead-dark">
@@ -91,6 +91,10 @@
                     </div>
                     <div class="modal-body">
                         <form>
+                                <div class="form-group">
+                                    <label for="claven">Clave del animal</label>
+                                    <input type="text" class="form-control" id="claven"  placeholder="Ingrese clave del animal">
+                                </div>
                             <div class="form-group">
                                 <label for="nombre">Nombre del animal</label>
                                 <input type="text" class="form-control" id="nombre"  placeholder="Ingrese nombre del animal">
@@ -119,79 +123,24 @@
                                 <label for="cautiverio">Cautiverio</label>
                                 <select class="form-control" id="cautiverio">
                                     <option value="">Seleccione una opcion</option>
-                                    <option value="1">1</option>
-                                    <option value="2">0</option>
+                                    <option value="1">false</option>
+                                    <option value="2">true</option>
                                 </select>
                             </div>
                             
                         </form>
                     </div>
                     <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="rellenar()">rellenar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn btn-primary" onclick="save_animal()">Guardar</button>
+                        <button type="button" class="btn btn-primary" onclick="update_animal()">Modificar</button>
+                        <button type="button" class="btn btn-primary" onclick="eliminate_animal()">Eliminar</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Modal Edite-->
-        <div class="modal fade" id="animalsModalEdite" tabindex="-1" role="dialog" aria-labelledby="animalsModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="animalsModalLabelEdite">Animales</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="claven">Nombre del animal</label>
-                                <input type="text" class="form-control" id="claven"  disable="true" >
-                            </div>
-                            <div class="form-group">
-                                <label for="nombreEdite">Nombre del animal</label>
-                                <input type="text" class="form-control" id="nombreEdite"  placeholder="Ingrese nombre del animal">
-                            </div>
-                            <div class="form-group">
-                                <label for="nombre_cientificoEdite">Nombre cientifico</label>
-                                <input type="text" class="form-control" id="nombre_cientificoEdite" placeholder="Ingrese nombre cientifico">
-                            </div>
-                            <div class="form-group">
-                                <label for="paisEdite">Pais</label>
-                                <input type="text" class="form-control" id="paisEdite" placeholder="Ingrese el pais">
-                            </div>
-                            <div class="form-group">
-                                <label for="edadEdite">Edad</label>
-                                <input type="number" class="form-control" id="edadEdite" placeholder="Ingrese la edad">
-                            </div>
-                            <div class="form-group">
-                                <label for="pesoEdite">Peso</label>
-                                <input type="number" class="form-control" id="pesoEdite" placeholder="Ingrese el peso">
-                            </div>
-                            <div class="form-group">
-                                <label for="continenteEdite">Continente</label>
-                                <input type="text" class="form-control" id="continenteEdite" placeholder="Ingrese el continente">
-                            </div>
-                            <div class="form-group">
-                                <label for="cautiverioEdite">Cautiverio</label>
-                                <select class="form-control" id="cautiverioEdite">
-                                    <option value="">Seleccione una opcion</option>
-                                    <option value="1">1</option>
-                                    <option value="2">0</option>
-                                </select>
-                            </div>
-                            
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" onclick="save_animal()">Guardar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+     
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -236,6 +185,8 @@
                 let animal = doc.data();
                 //console.log(user);
                 var row = table.insertRow();
+                row.key=doc.id;
+               // console.log(row.key);
                 add_cell(row, doc.id);
                 add_cell(row, animal.nombre_comun);
                 add_cell(row, animal.nombre_cientifico);
@@ -244,6 +195,7 @@
                 add_cell(row, animal.peso);
                 add_cell(row, animal.continente);
                 add_cell(row, animal.cautividad);
+            
             });
         }) 
         function add_cell (tr, text) {
@@ -254,7 +206,30 @@
     </script>
     <script>
         function rellenar(){
-            
+            if(document.getElementById('claven').value){
+                var myclave=document.getElementById('claven').value;
+                var docRef = db.collection("animal").doc(myclave);
+                docRef.get().then(function(doc) {
+                    if (doc.exists) {
+                        let animal=doc.data();
+                        document.getElementById('nombre').value = animal.nombre_comun;
+                        document.getElementById('nombre_cientifico').value = animal.nombre_cientifico;
+                        document.getElementById('pais').value = animal.pais;
+                        document.getElementById('edad').value = animal.edad;
+                        document.getElementById('peso').value = animal.peso;
+                        document.getElementById('continente').value = animal.continente;
+                        document.getElementById('cautiverio').value = animal.cautividad;
+                        console.log("Document data:", doc.data());
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                }).catch(function(error) {
+                    console.log("Error getting document:", error);
+                });
+            }else{
+                alert("Debe porporcionar una clave valida para rellenar los campos");
+            }
         }
         function save_animal(){
             alert("entro");
@@ -291,34 +266,61 @@
         }
 
         function update_animal(){
-            let nombre_comun=document.getElementById('nombre').value;
-            let nombre_cientifico=document.getElementById('nombre_cientifico').value;
-            let pais=document.getElementById('pais').value;
-            let edad=document.getElementById('edad').value;
-            let peso=document.getElementById('peso').value;
-            let continente=document.getElementById('continente').value;
-            let cautividad=document.getElementById('cautiverio').value;
-            let clave=document.getElementById('id_animal').value;
-           
-            var washingtonRef = db.collection("animal").doc(clave);
+            if(document.getElementById('claven')){
+                let nombre_comun=document.getElementById('nombre').value;
+                let nombre_cientifico=document.getElementById('nombre_cientifico').value;
+                let pais=document.getElementById('pais').value;
+                let edad=document.getElementById('edad').value;
+                let peso=document.getElementById('peso').value;
+                let continente=document.getElementById('continente').value;
+                let cautividad=document.getElementById('cautiverio').value;
+                let clave=document.getElementById('claven').value;
+            
+                var washingtonRef = db.collection("animal").doc(clave);
 
-            // Set the "animal" field of the city 'DC'
-            return washingtonRef.update({
-                nombre_comun,
-                nombre_cientifico,
-                cautividad,
-                edad,
-                peso,
-                pais,
-                continente
-            })
-            .then(function() {
-                console.log("Document successfully updated!");
-            })
-            .catch(function(error) {
-                // The document probably doesn't exist.
-                console.error("Error updating document: ", error);
-            });
+                // Set the "animal" field of the city 'DC'
+                return washingtonRef.update({
+                    nombre_comun,
+                    nombre_cientifico,
+                    cautividad,
+                    edad,
+                    peso,
+                    pais,
+                    continente
+                })
+                .then(function() {
+                    console.log("Document successfully updated!");
+                    alert("Animal actualizado")
+                    document.getElementById('nombre').value = "";
+                    document.getElementById('nombre_cientifico').value = "";
+                    document.getElementById('pais').value = "";
+                    document.getElementById('edad').value = "";
+                    document.getElementById('peso').value = "";
+                    document.getElementById('continente').value = "";
+                    document.getElementById('cautiverio').value = "";
+                })
+                .catch(function(error) {
+                    // The document probably doesn't exist.
+                    console.error("Error updating document: ", error);
+                });
+            }else{
+                alert("Ingrese clave para modificar wey")
+            }
+            
+        }
+        function eliminate_animal(){
+            if(document.getElementById('claven').value){
+                var myclave=document.getElementById('claven').value;
+
+                db.collection("animal").doc(myclave).delete().then(function() {
+                    alert("El registro de animal ha sido eliminado, refresca la pagina");
+                    console.log("Document successfully deleted!");
+                }).catch(function(error) {
+                    console.error("Error removing document: ", error);
+                });
+            }else{
+                alert("Ingrese clave para eliminar wey")
+            }
         }
     </script>
     
