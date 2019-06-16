@@ -70,6 +70,8 @@
                     <th>Peso</th>
                     <th>Continente</th>
                     <th>En Cautividad</th>
+                    <th>Especie</th>
+                    <th>Sub-especie</th>
                 </tr>
             </thead>
             <tbody class="tbody">
@@ -98,6 +100,18 @@
                             <div class="form-group">
                                 <label for="nombre">Nombre del animal</label>
                                 <input type="text" class="form-control" id="nombre"  placeholder="Ingrese nombre del animal">
+                            </div>
+                            <div class="form-group">
+                                <label for="especie">Especie animal</label>
+                                <select class="form-control" id="especie">
+                                    <option value="">Seleccione una opcion</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="subespecie">Sube-specie animal</label>
+                                <select class="form-control" id="subespecie">
+                                    <option value="">Seleccione una opcion</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="nombre_cientifico">Nombre cientifico</label>
@@ -195,9 +209,35 @@
                 add_cell(row, animal.peso);
                 add_cell(row, animal.continente);
                 add_cell(row, animal.cautividad);
+                add_cell(row, animal.especie);
+                add_cell(row, animal.sub_especie);
             
             });
         }) 
+        firestore.collection('especie').get().then(data => {
+            data.docs.forEach(function (doc, index) {
+                let especie = doc.data();
+                //console.log(user);
+                var x = document.getElementById("especie");
+                var option = document.createElement("option");
+                option.text = especie.especie;
+                option.value= especie.especie;
+                x.add(option);
+            
+            });
+        })
+        firestore.collection('subespecie').get().then(data => {
+            data.docs.forEach(function (doc, index) {
+                let subespecie = doc.data();
+                //console.log(user);
+                var y = document.getElementById("subespecie");
+                var option2 = document.createElement("option");
+                option2.text = subespecie.subespecie;
+                option2.value= subespecie.subespecie;
+                y.add(option2);
+            
+            });
+        })
         function add_cell (tr, text) {
             var td = tr.insertCell();
             td.textContent = text;
@@ -205,6 +245,63 @@
         }   
     </script>
     <script>
+        function save_especie(especie){
+            //var especie=document.getElementById('especie').value;
+            let existe=false;
+            let firestore = firebase.firestore();
+            firestore.collection('especie').get().then(data => {
+                data.docs.forEach(function (doc, index) {
+                    let especies=doc.data();
+                    alert(especie +" === "+ especies.especie);
+                    if(especie === especies.especie){
+                        existe=true;
+                    }
+                });
+               
+            });
+            if(existe){
+                
+            }else{
+                db.collection("especie").add({
+                    especie
+                }).then(function(docRef) {
+                    console.log("Document written with ID: ", docRef.id);
+                    alert("Se registro una nueva especie")
+                }).catch(function(error) {
+                    console.error("Error adding document: ", error);
+                });
+            } 
+        }
+        function save_subespecie(subespecie,especie){
+           // var subespecie=document.getElementById('sub_especie').value;
+            //var especie=document.getElementById('especie').value;
+            if(subespecie){
+                var existe=false;
+                let firestore = firebase.firestore();
+                firestore.collection('subespecie').get().then(data => {
+                    data.docs.forEach(function (doc, index) {
+                        let subespecies=doc.data();
+                        if(subespecies == sub.subespecie){
+                            existe=true;
+                        }
+                    });
+                   
+                });
+                if(existe){
+                   
+                }else{
+                    db.collection("subespecie").add({
+                        subespecie,
+                        especie
+                    }).then(function(docRef) {
+                        console.log("Document written with ID: ", docRef.id);
+                        alert("Se registro una nueva subespecie")
+                    }).catch(function(error) {
+                        console.error("Error adding document: ", error);
+                    });
+                }
+            }
+        }
         function rellenar(){
             if(document.getElementById('claven').value){
                 var myclave=document.getElementById('claven').value;
@@ -235,6 +332,8 @@
             alert("entro");
             let nombre_comun=document.getElementById('nombre').value;
             let nombre_cientifico=document.getElementById('nombre_cientifico').value;
+            let especie=document.getElementById('especie').value;
+            let sub_especie=document.getElementById('subespecie').value;
             let pais=document.getElementById('pais').value;
             let edad=document.getElementById('edad').value;
             let peso=document.getElementById('peso').value;
@@ -243,6 +342,8 @@
             db.collection("animal").add({
                 nombre_comun,
                 nombre_cientifico,
+                especie,
+                sub_especie,
                 cautividad,
                 edad,
                 peso,
@@ -250,6 +351,7 @@
                 continente
             })
             .then(function(docRef) {
+                
                 console.log("Document written with ID: ", docRef.id);
                 alert("Animal registrado")
                 document.getElementById('nombre').value = "";
@@ -259,10 +361,14 @@
                 document.getElementById('peso').value = "";
                 document.getElementById('continente').value = "";
                 document.getElementById('cautiverio').value = "";
+
             })
             .catch(function(error) {
                 console.error("Error adding document: ", error);
             });
+         
+       
+            
         }
 
         function update_animal(){
@@ -272,6 +378,8 @@
                 let pais=document.getElementById('pais').value;
                 let edad=document.getElementById('edad').value;
                 let peso=document.getElementById('peso').value;
+                let especie=document.getElementById('especie').value;
+                let sub_especie=document.getElementById('subespecie').value;
                 let continente=document.getElementById('continente').value;
                 let cautividad=document.getElementById('cautiverio').value;
                 let clave=document.getElementById('claven').value;
@@ -282,6 +390,8 @@
                 return washingtonRef.update({
                     nombre_comun,
                     nombre_cientifico,
+                    especie,
+                    sub_especie,
                     cautividad,
                     edad,
                     peso,
