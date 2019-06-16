@@ -87,7 +87,43 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <form>
+                            <div class="form-group">
+                                <label for="nombre">Nombre del empleado</label>
+                                <input type="text" class="form-control" id="nombre"  placeholder="Ingrese nombre del empleado">
+                            </div>
+                            <div class="form-group">
+                                <label for="edad">Edad</label>
+                                <input type="number" class="form-control" id="edad" placeholder="Ingrese la edad">
+                            </div>
+                            <div class="form-group">
+                                <label for="genero">Genero</label>
+                                <select class="form-control" id="Genero">
+                                    <option value="">Seleccione una opcion</option>
+                                    <option value="1">M</option>
+                                    <option value="2">F</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="direccion">Direccion</label>
+                                <input type="text" class="form-control" id="direccion" placeholder="Ingrese la direccion">
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha">Fecha de contrato</label>
+                                <input type="date" class="form-control" id="fecha" placeholder="Ingrese la fecha de contrato">
+                            </div>
+                            <div class="form-group">
+                                <label for="puesto">Puesto de trabajo</label>
+                                <select class="form-control" id="puesto">
+                                    <option value="">Seleccione una opcion</option>
+                                    <option value="1">Veterinario</option>
+                                    <option value="2">Cuidador</option>
+                                    <option value="3">Mantenimiento</option>
+                                    <option value="4">Otro</option>
+                                </select>
+                            </div>
+                            
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
