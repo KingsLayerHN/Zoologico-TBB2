@@ -49,7 +49,7 @@ function eliminate_animal() {
             console.error("Error removing document: ", error);
         });
     } else {
-        alert("Ingrese clave para eliminar wey")
+        alert("Ingrese clave para eliminar registro")
     }
 }
 
@@ -81,55 +81,59 @@ function rellenar() {
 }
 
 //mostrar datos en tabla
-var table = document.getElementById('animal_table').getElementsByTagName('tbody')[0] // Tabla de datos
-let firestore = firebase.firestore();
-firestore.collection('animal').get().then(data => {
-    data.docs.forEach(function (doc, index) {
-        let animal = doc.data();
-        
-        //console.log(user);
-        var row = table.insertRow();
-        row.key = doc.id;
-        // console.log(row.key);
-        add_cell(row, doc.id);
-        add_cell(row, animal.nombre_comun);
-        add_cell(row, animal.nombre_cientifico);
-        add_cell(row, animal.pais);
-        add_cell(row, animal.edad);
-        add_cell(row, animal.peso);
-        add_cell(row, animal.continente);
-        add_cell(row, animal.cautividad);
-        add_cell(row, animal.especie);
-        add_cell(row, animal.sub_especie);
+function refreshTable() {
+    var table = document.getElementById('animal_table').getElementsByTagName('tbody')[0] // Tabla de datos
+    let firestore = firebase.firestore();
+    firestore.collection('animal').get().then(data => {
+        data.docs.forEach(function (doc, index) {
+            let animal = doc.data();
 
-    });
-})
-firestore.collection('especie').get().then(data => {
-    data.docs.forEach(function (doc, index) {
-        let especie = doc.data();
-        //console.log(user);
-        var x = document.getElementById("especie");
-        var option = document.createElement("option");
-        option.text = especie.especie;
-        option.value = especie.especie;
-        x.add(option);
+            //console.log(user);
+            var row = table.insertRow();
+            row.key = doc.id;
+            // console.log(row.key);
+            add_cell(row, doc.id);
+            add_cell(row, animal.nombre_comun);
+            add_cell(row, animal.nombre_cientifico);
+            add_cell(row, animal.pais);
+            add_cell(row, animal.edad);
+            add_cell(row, animal.peso);
+            add_cell(row, animal.continente);
+            add_cell(row, animal.cautividad);
+            add_cell(row, animal.especie);
+            add_cell(row, animal.sub_especie);
 
-    });
-})
-firestore.collection('subespecie').get().then(data => {
-    data.docs.forEach(function (doc, index) {
-        let subespecie = doc.data();
-        //console.log(user);
-        var y = document.getElementById("subespecie");
-        var option2 = document.createElement("option");
-        option2.text = subespecie.subespecie;
-        option2.value = subespecie.subespecie;
-        y.add(option2);
+        });
+    })
+    firestore.collection('especie').get().then(data => {
+        data.docs.forEach(function (doc, index) {
+            let especie = doc.data();
+            //console.log(user);
+            var x = document.getElementById("especie");
+            var option = document.createElement("option");
+            option.text = especie.especie;
+            option.value = especie.especie;
+            x.add(option);
 
-    });
-})
-function add_cell(tr, text) {
-    var td = tr.insertCell();
-    td.textContent = text;
-    return td;
-}  
+        });
+    })
+    firestore.collection('subespecie').get().then(data => {
+        data.docs.forEach(function (doc, index) {
+            let subespecie = doc.data();
+            //console.log(user);
+            var y = document.getElementById("subespecie");
+            var option2 = document.createElement("option");
+            option2.text = subespecie.subespecie;
+            option2.value = subespecie.subespecie;
+            y.add(option2);
+
+        });
+    })
+    function add_cell(tr, text) {
+        var td = tr.insertCell();
+        td.textContent = text;
+        return td;
+    }
+}
+
+refreshTable();

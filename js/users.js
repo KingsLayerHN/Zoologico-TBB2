@@ -1,6 +1,5 @@
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
-    console.log(user.email);
     var table = document.getElementById('UsersTable').getElementsByTagName('tbody')[0] // Tabla de datos
     let firestore = firebase.firestore();
     firestore.collection('users').get().then(data => {
