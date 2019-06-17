@@ -61,6 +61,27 @@ function rellenar() {
     }
 }
 
+function fill_habitad_list () {
+    let firestore = firebase.firestore();
+    firestore.collection('especie_habitad').get().then(docs => {
+        docs.forEach((doc) => {
+            let eh = doc.data();
+            if (eh) {
+                eh.id = doc.id;
+                firestore.collection('especie').doc(eh.id_especie).get().then(doc => {
+                    let especie = doc.data();
+                    if (especie) {
+                        firestore.collection('habitad').doc(eh.id_habitad).get().then(doc_habitad => {
+                            let habitad = doc_habitad.data();
+                            // Llena la tabla con especie y habitad
+                        });
+                    }
+                })
+            }
+        })
+    })
+}
+
 //mostrar datos en tabla
 function refreshTable() {
     var table = document.getElementById('habitad_table').getElementsByTagName('tbody')[0] // Tabla de datos
