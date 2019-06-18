@@ -55,8 +55,8 @@
             </div>
         </nav>
         <button type="button" class="btn btn-success" data-target="#historialmedicoModal"
-            data-toggle="modal">Gestionar</button>
-        <table class="table">
+            data-toggle="modal" onclick="llenar_formulario()">Gestionar</button>
+        <table class="table" id="alimento_table">
             <thead class="thead-dark">
                 <tr>
                     <th>No</th>
@@ -86,11 +86,49 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        ...
+                            <form>
+                                    <div class="form-group">
+                                        <label for="claven">Clave de mantenimiento</label>
+                                        <input type="text" class="form-control" id="claven"
+                                            placeholder="Ingrese clave del animal">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="empleado">Cuidador</label>
+                                        <select class="form-control" id="empleado">
+                                            <option value="Ninguno">Seleccione una opcion</option>
+                                        </select>
+                                    </div> 
+                                    <div class="form-group">
+                                            <label for="animal">Animal</label>
+                                            <select class="form-control" id="animal">
+                                                <option value="Ninguno">Seleccione una opcion</option>
+                                            </select>
+                                    </div>                                    
+                                    <div class="form-group">
+                                            <label for="fecha">Fecha de dieta</label>
+                                            <input type="date" class="form-control" id="fecha"
+                                                placeholder="Ingrese la fecha de contrato">
+                                        </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="descripcion">Descripcion</label>
+                                        <textarea class="form-control rounded-0" id="descripcion" rows="5"></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                            <label for="tomas">Numero de tomas</label>
+                                            <input type="text" class="form-control" id="tomas"
+                                                placeholder="Ingrese clave del animal">
+                                    </div>
+                                   
+        
+                                </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-primary" onclick="delete_alimento()">Eliminar</button>
+                        <button type="button" class="btn btn-primary" onclick="update_alimento()">Modificar</button>
+                        <button type="button" class="btn btn-primary" onclick="save_alimento()">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -129,9 +167,11 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
     </script>
 
     <script src="./js/users.js"></script>
+    <script src="./js/alimento.js"></script>
 </body>
 
 </html>
