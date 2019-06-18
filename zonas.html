@@ -55,7 +55,7 @@
             </div>
         </nav>
         <button type="button" class="btn btn-success" data-target="#zonasModal" data-toggle="modal">Gestionar</button>
-        <table class="table">
+        <table class="table" id="zona_table">
             <thead class="thead-dark">
                 <tr>
                     <th>No</th>
@@ -83,6 +83,11 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
+                                <label for="claven">Extension de la zona</label>
+                                <input type="text" class="form-control" id="claven"
+                                    placeholder="Ingrese la extension de la zona">
+                            </div>
+                            <div class="form-group">
                                 <label for="extension">Extension de la zona</label>
                                 <input type="text" class="form-control" id="extension"
                                     placeholder="Ingrese la extension de la zona">
@@ -96,7 +101,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-primary" onclick="eliminate_zona()">Eliminar</button>
+                        <button type="button" class="btn btn-primary" onclick="rellenar()">Rellenar</button>
+                        <button type="button" class="btn btn-primary" onclick="update_zona()">Editar</button>
+                        <button type="button" class="btn btn-primary" onclick="save_zona()">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -136,9 +144,11 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
     </script>
 
     <script src="./js/users.js"></script>
+    <script src="./js/zonas.js"></script>
 </body>
 
 </html>

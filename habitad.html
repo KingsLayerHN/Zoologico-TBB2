@@ -54,8 +54,8 @@
                 </ul>
             </div>
         </nav>
-        <button type="button" class="btn btn-success" data-target="#habitadModal" data-toggle="modal">Gestionar</button>
-        <button type="button" class="btn btn-success" onclick="fill_habitad_list()" data-target="#habitadModal" data-toggle="modal">Ver especies en habitad</button>
+        <button type="button" class="btn btn-success" onclick="cargar_zonas()" data-target="#habitadModal" data-toggle="modal">Gestionar</button>
+        <button type="button" class="btn btn-success"  data-target="#habitadModal2" data-toggle="modal" onclick="llenar_especies()">Agregar especie</button>
         <table class="table" id="habitad_table">
             <thead class="thead-dark">
                 <tr>
@@ -63,35 +63,54 @@
                     <th>Nombre</th>
                     <th>Vegetacion</th>
                     <th>Tipo de clima</th>
+                    <th>Zona</th>
+                    <th>Especie</th>
+                    <th>Subespecie</th>
                 </tr>
             </thead>
             <tbody class="tbody">
 
             </tbody>
         </table>
-        <!-- Modal -->
-        <div class="modal fade" id="habitadLista" tabindex="-1" role="dialog" aria-labelledby="habitadListaModalLabel">
+       <!-- Modal -->
+       <div class="modal fade" id="habitadModal2" tabindex="-1" role="dialog" aria-labelledby="habitadModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="habitadListaModalLabel">Habitad</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Cras justo odio</li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                            <li class="list-group-item">Morbi leo risus</li>
-                            <li class="list-group-item">Porta ac consectetur ac</li>
-                            <li class="list-group-item">Vestibulum at eros</li>
-                        </ul>
+                   <h5 class="modal-title" id="habitadModalLabel">Habitad</h5>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                   </button>
+               </div>
+               <div class="modal-body">
+                   <form>
+                       <div class="form-group">
+                           <label for="id_habitad">Clave habitad</label>
+                           <input type="text" class="form-control" id="id_habitad" placeholder="Ingrese clave habitad">
+                       </div>
+                       <div class="form-group">
+                            <label for="select_especie">Especie animal</label>
+                            <select class="form-control" id="select_especie" onmousedown="this.value='';" onchange="llenar_subespecies(this.value)">
+                                <option value="Ninguno">Seleccione una opcion</option>    
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="select_subespecie">Subespecie animal</label>
+                            <select class="form-control" id="select_subespecie">
+                                <option value="Ninguno">Seleccione una opcion</option>    
+                            </select>
+                        </div>
+                   </form>
+               </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="update_habitad_especies()">Guardar</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Modal -->
+        <!-- Modal de agregadoooooooooooooooooo -->
         <div class="modal fade" id="habitadModal" tabindex="-1" role="dialog" aria-labelledby="habitadModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -119,9 +138,15 @@
                                     placeholder="Ingrese la vegetacion del habitad">
                             </div>
                             <div class="form-group">
-                                <label for="clima">Especie del animal</label>
+                                <label for="clima">Clima</label>
                                 <input type="text" class="form-control" id="clima"
                                     placeholder="Ingrese el clima del habitad">
+                            </div>
+                            <div class="form-group">
+                                <label for="select_zona">Zonas</label>
+                                <select class="form-control" id="select_zona">
+                                    <option value="Ninguno">Seleccione una opcion</option>    
+                                </select>
                             </div>
                         </form>
                     </div>
@@ -129,8 +154,8 @@
                         <button type="button" class="btn btn-secondary" onclick="rellenar()">rellenar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="button" class="btn btn-primary" onclick="save_habitad()">Guardar</button>
-                        <button type="button" class="btn btn-primary" onclick="updateHabitad()">Modificar</button>
-                        <button type="button" class="btn btn-primary" onclick="deleteHabitad()">Eliminar</button>
+                        <button type="button" class="btn btn-primary" onclick="udpate_habitad()">Modificar</button>
+                        <button type="button" class="btn btn-primary" onclick="delete_habitad()">Eliminar</button>
                     </div>
                 </div>
             </div>
