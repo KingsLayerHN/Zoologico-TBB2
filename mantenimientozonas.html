@@ -54,9 +54,9 @@
                 </ul>
             </div>
         </nav>
-        <button type="button" class="btn btn-success" data-target="#animalsModal" disabled="true"
-            data-toggle="modal">Gestionar</button>
-        <table class="table">
+        <button type="button" class="btn btn-success" data-target="#animalsModal" 
+            data-toggle="modal" onclick="llenar_formulario()">Gestionar</button>
+        <table class="table" id="mantenimiento_table">
             <thead class="thead-dark">
                 <tr>
                     <th>No</th>
@@ -84,11 +84,44 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        ...
+                            <form>
+                                    <div class="form-group">
+                                        <label for="claven">Clave de mantenimiento</label>
+                                        <input type="text" class="form-control" id="claven"
+                                            placeholder="Ingrese clave del animal">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="zona" >Zona</label>
+                                        <select class="form-control" id="zona" onmousedown="this.value='';" onchange="llenar_habitad(this.value)">
+                                            <option value="Ninguno">Seleccione una opcion</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="habitad">Habitads</label>
+                                        <select class="form-control" id="habitad">
+                                            <option value="Ninguno">Seleccione una opcion</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="empleado">Empleados de mantenimiento</label>
+                                        <select class="form-control" id="empleado">
+                                            <option value="Ninguno">Seleccione una opcion</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="descripcion">Descripcion</label>
+                                        <textarea class="form-control rounded-0" id="descripcion" rows="5"></textarea>
+                                    </div>
+                                   
+        
+                                </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-primary" onclick="eliminate_mantenimiento()">Eliminar</button>
+                        <button type="button" class="btn btn-primary" onclick="update_mantenimiento()">Modificar</button>
+                        <button type="button" class="btn btn-primary" onclick="save_mantenimiento()">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -127,9 +160,11 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
     </script>
 
     <script src="./js/users.js"></script>
+    <script src="./js/mantenimiento.js"></script>
 </body>
 
 </html>

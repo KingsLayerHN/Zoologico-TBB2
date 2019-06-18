@@ -16,7 +16,8 @@ function save_empleado(){
             fecha_contrato,
             puesto,
             especie:'Ninguno',
-            id_especie:'Ninguno'
+            id_especie:'Ninguno',
+            informacion:'Ninguno'
         }).then(function (docRef) {
             console.log("Document written with ID: ", docRef.id);
             alert("Empleado registrado")
